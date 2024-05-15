@@ -4,4 +4,6 @@ class Game < ApplicationRecord
   }.freeze
 
   enum kind: { slots: 0 }
+
+  has_many :sessions, inverse_of: :game
 end
