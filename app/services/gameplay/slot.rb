@@ -4,9 +4,20 @@ module Gameplay
       @session = session
     end
 
-    def play
-      raise Errors::NotEnoughCredits if session.score.zero?
-      # raise "Session is finished"  session.finished?
+    def start!
+      raise Gameplay::Errors::FinishedSession if session.finished? || session.lost? || session.won?
+
+      session.play!
+    end
+
+    def finish!
+      session.finish!
+    end
+
+    def play!
+      raise Gameplay::Errors::InactiveSession if session.new_game?
+      raise Gameplay::Errors::FinishedSession if session.finished? || session.lost? || session.won?
+      raise Gameplay::Errors::NotEnoughCredits if session.score.zero?
 
       crank_lever
 
@@ -20,13 +31,13 @@ module Gameplay
     def crank_lever
       roll
 
-      update_session_score
+      log_roll
+      update_session
     end
 
     def roll
       generate_sequence
       calculate_reward
-      log_roll
     end
 
     def generate_sequence
@@ -49,11 +60,21 @@ module Gameplay
       raise NotImplementedError
     end
 
+    def update_session
+      update_session_score
+
+      session.lose! if session.zero?
+    end
+
     def update_session_score
       if winning_roll?
         session.update!(score: session.score + reward)
       else
-        session.update!(score: session.score - penalty)
+        if session.score < penalty
+          session.update!(score: 0)
+        else
+          session.update!(score: session.score - penalty)
+        end
       end
     end
 
