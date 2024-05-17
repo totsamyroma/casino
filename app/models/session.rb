@@ -1,3 +1,4 @@
 class Session < ApplicationRecord
-  belongs_to :game, inverse_of: :sessions
+  belongs_to :game
+  belongs_to :player
 end

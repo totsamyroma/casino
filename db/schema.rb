@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_15_221138) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_17_084429) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,13 +22,24 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_15_221138) do
     t.integer "credits", default: 0
   end
 
+  create_table "players", force: :cascade do |t|
+    t.string "nick", limit: 30, null: false
+    t.decimal "credits", precision: 10, scale: 2, default: "0.0", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["nick"], name: "index_players_on_nick", unique: true
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.bigint "game_id", null: false
     t.integer "score", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "player_id", null: false
     t.index ["game_id"], name: "index_sessions_on_game_id"
+    t.index ["player_id"], name: "index_sessions_on_player_id"
   end
 
   add_foreign_key "sessions", "games"
+  add_foreign_key "sessions", "players"
 end
