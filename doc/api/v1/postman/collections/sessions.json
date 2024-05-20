@@ -1,0 +1,190 @@
+{
+	"info": {
+		"_postman_id": "91431b4a-5d75-42e0-b670-cfb28c66e3d3",
+		"name": "2. Sessions",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16837693"
+	},
+	"item": [
+		{
+			"name": "Create Session",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let responseData = pm.response.json();",
+							"",
+							"if (responseData.id) {",
+							"    pm.environment.set(\"sessionId\", responseData.id);",
+							"",
+							"    console.log(\"Session ID:\", responseData.id);",
+							"} else {",
+							"    console.error(\"Session ID not found in the response.\");",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"session\": {\n        \"game_id\": {{frutty_tutty_game_id}},\n        \"player_id\": {{userId}}\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{api_domain}}/api/v1/sessions",
+					"host": [
+						"{{api_domain}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"sessions"
+					]
+				},
+				"description": "API V1 endpoint to create a new `player`'s `session`\n\nResponse example:\n\n``` json\n{\n    \"id\": 9,\n    \"game_id\": 3,\n    \"score\": 0,\n    \"created_at\": \"2024-05-20T13:12:24.190Z\",\n    \"updated_at\": \"2024-05-20T13:12:24.190Z\",\n    \"player_id\": 18,\n    \"state\": \"new_game\"\n}\n\n```"
+			},
+			"response": []
+		},
+		{
+			"name": "Show Session",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{api_domain}}/api/v1/sessions/{{sessionId}}",
+					"host": [
+						"{{api_domain}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"sessions",
+						"{{sessionId}}"
+					]
+				},
+				"description": "API V1 endpoint to get `session`'s information  \n  \n\nResponse example:  \n\n``` json\n{\n    \"id\": 9,\n    \"game_id\": 3,\n    \"score\": 0,\n    \"created_at\": \"2024-05-20T13:12:24.190Z\",\n    \"updated_at\": \"2024-05-20T13:12:24.190Z\",\n    \"player_id\": 19,\n    \"state\": \"new_game\"\n}\n\n```"
+			},
+			"response": []
+		},
+		{
+			"name": "Start Session",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{api_domain}}/api/v1/sessions/{{sessionId}}/start",
+					"host": [
+						"{{api_domain}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"sessions",
+						"{{sessionId}}",
+						"start"
+					]
+				},
+				"description": "API V1 endpoint to move a `session` from `new` to `in_progress` state"
+			},
+			"response": []
+		},
+		{
+			"name": "Finish Session",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"player\": {\n        \"nick\": \"Player #666\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{api_domain}}/api/v1/sessions/4/finish",
+					"host": [
+						"{{api_domain}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"sessions",
+						"4",
+						"finish"
+					]
+				},
+				"description": "API V1 endpoint to move a `session` from `in_progress` to `finished` state"
+			},
+			"response": []
+		},
+		{
+			"name": "Cash Out",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{api_domain}}/api/v1/sessions/4/cash_out",
+					"host": [
+						"{{api_domain}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"sessions",
+						"4",
+						"cash_out"
+					]
+				},
+				"description": "API V1 endpoint to move credits from a `session` to `player`'s account  \n\n**CAUTION**: this finishes a game and moves a `session` to `won` state"
+			},
+			"response": []
+		}
+	]
+}

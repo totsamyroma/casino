@@ -1,0 +1,190 @@
+{
+	"info": {
+		"_postman_id": "73c2461d-308c-4dc2-adae-6e57b4dea31c",
+		"name": "3. Games",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16837693"
+	},
+	"item": [
+		{
+			"name": "FruttyTutty",
+			"item": [
+				{
+					"name": "Start",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"game\": {\n        \"session_id\": {{sessionId}}\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_domain}}/api/v1/games/frutty_tutty/start",
+							"host": [
+								"{{api_domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"games",
+								"frutty_tutty",
+								"start"
+							]
+						},
+						"description": "API V1 Frutty Tutty game endpoint to start a game session.\n\nRequires `session_id`"
+					},
+					"response": []
+				},
+				{
+					"name": "Play",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"game\": {\n        \"session_id\": {{sessionId}}\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_domain}}/api/v1/games/frutty_tutty/play",
+							"host": [
+								"{{api_domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"games",
+								"frutty_tutty",
+								"play"
+							]
+						},
+						"description": "API V1 Frutty Tutty game endpoint to play a roll, aka crank lever.\n\nRequires `session_id`"
+					},
+					"response": []
+				},
+				{
+					"name": "Finish",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"game\": {\n        \"session_id\": 1\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_domain}}/api/v1/games/frutty_tutty/finish",
+							"host": [
+								"{{api_domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"games",
+								"frutty_tutty",
+								"finish"
+							]
+						},
+						"description": "API V1 Frutty Tutty game endpoint to stop game session.\n\nRequires `session_id`\n\n**CAUTION:** It moves `session` to `finished` state, and player loses all progress, meaning they can't cash out available score if there's any."
+					},
+					"response": []
+				},
+				{
+					"name": "Top Up",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"game\": {\n        \"session_id\": {{sessionId}},\n        \"top_up_amount\": 1000\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_domain}}/api/v1/games/frutty_tutty/top_up",
+							"host": [
+								"{{api_domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"games",
+								"frutty_tutty",
+								"top_up"
+							]
+						},
+						"description": "API V1 Frutty Tutty game endpoint to top up game session.\n\nRequires `session_id`"
+					},
+					"response": []
+				},
+				{
+					"name": "Cash Out",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"game\": {\n        \"session_id\": {{sessionId}},\n        \"top_up_amount\": 1000\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_domain}}/api/v1/games/frutty_tutty/cash_out",
+							"host": [
+								"{{api_domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"games",
+								"frutty_tutty",
+								"cash_out"
+							]
+						},
+						"description": "API V1 Frutty Tutty game endpoint to stop game session.\n\nRequires `session_id`\n\n**CAUTION:** It moves `session` to `won` state, and player gets all scores to their account."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "List Games",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api_domain}}/api/v1/games",
+					"host": [
+						"{{api_domain}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"games"
+					]
+				},
+				"description": "API V1 endpoint to get list of games\n\nResponse example:\n\n``` json\n[\n    {\n        \"id\": 3,\n        \"name\": \"Frutty-Tutty\",\n        \"kind\": \"slots\",\n        \"created_at\": \"2024-05-15T22:16:16.822Z\",\n        \"updated_at\": \"2024-05-15T22:16:16.822Z\",\n        \"credits\": 10\n    }\n]\n\n```"
+			},
+			"response": []
+		}
+	]
+}

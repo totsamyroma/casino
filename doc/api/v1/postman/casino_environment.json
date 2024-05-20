@@ -1,0 +1,33 @@
+{
+	"id": "01c54c7a-fcc7-4b76-adc9-dedf5daba1a0",
+	"name": "Casion Environment",
+	"values": [
+		{
+			"key": "userId",
+			"value": 18,
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "sessionId",
+			"value": 8,
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "frutty_tutty_game_id",
+			"value": "3",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "api_domain",
+			"value": "http://localhost:3000",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2024-05-20T13:36:50.248Z",
+	"_postman_exported_using": "Postman/10.10.9"
+}
