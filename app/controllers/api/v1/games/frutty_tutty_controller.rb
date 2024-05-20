@@ -37,7 +37,7 @@ module Api
         private
 
         def game_params
-          params.require(:game).permit(:session_id, :top_up_amount)
+          params.require(:game).permit(:session_id, :top_up_amount, :player_id)
         end
 
         def session

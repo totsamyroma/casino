@@ -14,7 +14,9 @@ module Api
         # todo: move to session creator
         # it has to allocate free points in the beginning of the session
         # if a game has one
-        render json: Session.create(session_params)
+        session = Session.create(**session_params, score: game.credits)
+
+        render json: session
       end
 
       def start
@@ -46,11 +48,16 @@ module Api
       private
 
       def session_params
+
         params.require(:session).permit(:id, :game_id, :player_id)
       end
 
       def session
         @session ||= Session.find(params[:id])
+      end
+
+      def game
+        @game ||= Game.find(session_params[:game_id])
       end
     end
   end
