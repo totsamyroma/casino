@@ -11,17 +11,22 @@ module Api
         # For not simply create a player
         # In future it's necessary to verify age and T&C
 
+        # todo: move to session creator
+        # it has to allocate free points in the beginning of the session
+        # if a game has one
         render json: Session.create(session_params)
       end
 
       def start
-        session.play!
+        raise Gameplay::Errors::FinishedSession if session.finished? || session.lost? || session.won?
+
+        session.play
 
         render json: session.save
       end
 
       def finish
-        session.finish!
+        session.finish
 
         render json: session.save
       end
@@ -30,6 +35,7 @@ module Api
         # todo move to cashout service
 
         ApplicationRecord.transaction do
+          session.finish!
           session.player.update(credits: session.player.credits + session.score)
           session.update(score: 0)
         end

@@ -14,6 +14,26 @@ module Gameplay
       session.finish!
     end
 
+    def cash_out!
+      raise Gameplay::Errors::FinishedSession if session.lost?
+
+      ApplicationRecord.transaction do
+        session.finish!
+        session.player.update(credits: session.player.credits + session.score)
+        session.update(score: 0)
+      end
+    end
+
+    def top_up!(top_up_amount)
+      raise Gameplay::Errors::FinishedSession if session.finished? || session.lost? || session.won?
+      # TODO
+      # raise if top_up_amount is negative or not a number
+
+      ApplicationRecord.transaction do
+        session.update(score: session.score + top_up_amount)
+      end
+    end
+
     def play!
       raise Gameplay::Errors::InactiveSession if session.new_game?
       raise Gameplay::Errors::FinishedSession if session.finished? || session.lost? || session.won?

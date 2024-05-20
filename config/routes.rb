@@ -14,6 +14,18 @@ Rails.application.routes.draw do
         patch :finish, on: :member
         patch :cash_out, on: :member
       end
+
+      resources :games, only: %i[index]
+
+      namespace :games do
+        namespace :frutty_tutty do
+          patch :start
+          patch :play
+          patch :finish
+          patch :cash_out
+          patch :top_up
+        end
+      end
     end
   end
 end
