@@ -61,7 +61,11 @@ module Gameplay
     end
 
     def generate_sequence
-      @sequence = Array.new(slots.size) { slots.sample }
+      @sequence = Array.new(slots_number) { slots.sample }
+    end
+
+    def slots_number
+      railse notImplementedError
     end
 
     def calculate_reward

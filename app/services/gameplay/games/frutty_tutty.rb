@@ -2,6 +2,7 @@ module Gameplay
   module Games
     class FruttyTutty < Slot
       SLOTS = %w[🍒 🍋 🍊 🍉].freeze
+      SLOTS_NUMBER = 3
       REWARDS = { "🍒" => 10, "🍋" => 20, "🍊" => 30, "🍉" => 40 }.freeze
 
       FREE_SCORES = 10
@@ -22,6 +23,10 @@ module Gameplay
 
       def slots
         SLOTS
+      end
+
+      def slots_number
+        SLOTS_NUMBER
       end
 
       def rewards
