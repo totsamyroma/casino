@@ -15,7 +15,7 @@ import axios from 'axios'
 
 export default defineComponent({
   setup() {
-    const games = ref<Array<{ id: number, name: string, kind: string, credits: number }>>([])
+    const games = ref<Array<{ id: number; name: string; kind: string; credits: number }>>([])
 
     onMounted(async () => {
       try {

@@ -1,28 +1,49 @@
 <template>
   <div>
     <h1>Frutty Tutty</h1>
-    <button v-if="!sessionCreated" @click="createSession">New Game</button>
-    <div v-else>
-      <button v-if="sessionState === 'new_game'" @click="startGame">Start</button>
-      <div v-if="sessionState === 'in_progress'">
-        <div>
-          <span v-for="(item, index) in sequence" :key="index">{{ item }}</span>
-        </div>
-        <p>Reward: {{ reward }}</p>
-        <p>Score: {{ score }}</p>
-        <button @click="playGame">Play</button>
-        <button @click="finishGame">Finish</button>
-        <button @click="cashOutGame">Cash Out</button>
+    <div v-if="sessionState === 'in_progress'">
+      <div>
+        <Slot
+        v-for="(item, index) in sequence"
+        :key="index"
+        :char="item"
+        :animationChars="getShuffledAnimationChars()"
+        :delay='(index + 1)'
+        />
+      </div>
+      <div>
+        <GameStats
+        :reward="reward"
+        :score="score"
+        :delay='sequence.length * 1000'
+        />
       </div>
     </div>
+    <Controls
+    :sessionCreated="sessionCreated"
+    :sessionState="sessionState"
+    @newGame="createSession"
+    @startGame="startGame"
+    @playGame="playGame"
+    @finishGame="finishGame"
+    @cashOutGame="cashOutGame"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue'
 import axios from 'axios'
+import Controls from './FruttyTutty/Controls.vue'
+import GameStats from './FruttyTutty/GameStats.vue'
+import Slot from './FruttyTutty/Slot.vue'
 
 export default defineComponent({
+  components: {
+    Controls,
+    GameStats,
+    Slot
+  },
   setup() {
     const playerId = localStorage.getItem('playerId')
     const gameId = ref<number | null>(null)
@@ -31,9 +52,12 @@ export default defineComponent({
     const sessionCreated = ref(false)
     const sessionState = ref<string>('')
 
-    const sequence = ref<string[]>(["❓", "❓", "❓","❓"])
+    const sequence = ref<string[]>(['❓', '❓', '❓'])
     const reward = ref<number>(0)
     const score = ref<number>(0)
+
+    // TODO: Ideally get a sequence of characters from the server
+    const animationChars = ref<string[]>(['🍒', '🍋', '🍊', '🍉'])
 
     onMounted(async () => {
       try {
@@ -47,6 +71,21 @@ export default defineComponent({
         console.error(error)
       }
     })
+
+    const shuffleArray = (array: string[]) => {
+      const copy = [...array]
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1))
+        const temp = copy[i]
+        copy[i] = copy[j]
+        copy[j] = temp
+      }
+      return copy
+    }
+
+    const getShuffledAnimationChars = () => {
+      return shuffleArray(animationChars.value)
+    }
 
     const createSession = async () => {
       try {
@@ -62,6 +101,7 @@ export default defineComponent({
         sessionId.value = session.id
         sessionState.value = session.state
         sessionCreated.value = true
+        score.value = session.score
       } catch (error) {
         console.error(error)
       }
@@ -69,11 +109,14 @@ export default defineComponent({
 
     const startGame = async () => {
       try {
-        const response = await axios.patch(`http://localhost:3000/api/v1/games/frutty_tutty/start`, {
-          game: {
-            session_id: sessionId.value,
+        const response = await axios.patch(
+          `http://localhost:3000/api/v1/games/frutty_tutty/start`,
+          {
+            game: {
+              session_id: sessionId.value
+            }
           }
-        })
+        )
 
         const session = response.data
 
@@ -87,7 +130,7 @@ export default defineComponent({
       try {
         const response = await axios.patch('http://localhost:3000/api/v1/games/frutty_tutty/play', {
           game: {
-            session_id: sessionId.value,
+            session_id: sessionId.value
           }
         })
 
@@ -105,7 +148,7 @@ export default defineComponent({
       try {
         await axios.patch('http://localhost:3000/api/v1/games/frutty_tutty/finish', {
           game: {
-            session_id: sessionId.value,
+            session_id: sessionId.value
           }
         })
 
@@ -119,7 +162,7 @@ export default defineComponent({
       try {
         await axios.patch('http://localhost:3000/api/v1/games/frutty_tutty/cashout', {
           game: {
-            session_id: sessionId.value,
+            session_id: sessionId.value
           }
         })
 
@@ -135,11 +178,13 @@ export default defineComponent({
       sequence,
       score,
       reward,
+      animationChars,
       createSession,
       startGame,
       playGame,
       finishGame,
-      cashOutGame
+      cashOutGame,
+      getShuffledAnimationChars
     }
   }
 })
