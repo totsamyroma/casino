@@ -1,24 +1,24 @@
 require 'rails_helper'
 
-RSpec.describe Player, type: :model do
+RSpec.describe Game, type: :model do
   describe 'validations' do
     context 'with valid attributes' do
-      subject(:player) { build(:player) }
+      subject(:game) { build(:game) }
 
       it { is_expected.to be_valid }
     end
 
-    context 'when nick is missing' do
-      subject(:player) { build(:player, nick: '') }
+    context 'when name is missing' do
+      subject(:game) { build(:game, name: '') }
 
       it { is_expected.to_not be_valid }
     end
 
-    context 'when nick is taken' do
-      subject(:player) { build(:player, nick: "Taken") }
+    context 'when name is taken' do
+      subject(:game) { build(:game, name: "Taken") }
 
       before do
-        create(:player, nick: "Taken")
+        create(:game, name: "Taken")
       end
 
       it { is_expected.to_not be_valid }

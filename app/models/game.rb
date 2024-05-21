@@ -3,4 +3,7 @@ class Game < ApplicationRecord
 
   has_many :sessions
   has_many :players, through: :sessions
+
+  validates :name, presence: true, uniqueness: true
+  validates :credits, presence: true, numericality: { greater_than_or_equal_to: 0 }
 end
