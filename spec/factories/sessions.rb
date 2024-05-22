@@ -3,7 +3,7 @@ FactoryBot.define do
     game
     player
 
-    score { 1 }
+    score { 0 }
 
     trait :new
 

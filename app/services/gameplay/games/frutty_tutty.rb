@@ -14,10 +14,16 @@ module Gameplay
         super
       end
 
+      def start!
+        super
+
+        add_free_scores
+      end
+
       private
 
       def add_free_scores
-        session.update score: session.score + FREE_SCORES
+        session.update score: session.score + session.game.credits
       end
 
       def slots
@@ -53,10 +59,18 @@ module Gameplay
       def reroll?
         return false unless winning_roll?
 
-        return CHANCE_60.sample if session.score > 60
-        return CHANCE_30.sample if session.score > 40
+        return reroll_with_chance_60? if session.score > 60
+        return reroll_with_chance_30? if session.score > 40
 
         false
+      end
+
+      def reroll_with_chance_60?
+        CHANCE_60.sample
+      end
+
+      def reroll_with_chance_30?
+        CHANCE_30.sample
       end
     end
   end
