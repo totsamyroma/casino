@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :game do
-    name { "MyString" }
+    sequence(:name) { |n| "Game ##{n}" }
     kind { :slots }
     credits { 0 }
   end
