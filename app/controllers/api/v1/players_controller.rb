@@ -4,7 +4,7 @@ module Api
       skip_before_action :verify_authenticity_token
 
       def show
-        render json: Player.find(params[:id])
+        render json: player
       end
 
       def create
@@ -15,13 +15,19 @@ module Api
       end
 
       def update
-        render json: Player.find(params[:id]).update(player_params)
+        player.update(player_params)
+
+        render json: player
       end
 
       private
 
       def player_params
         params.require(:player).permit(:id, :nick)
+      end
+
+      def player
+        @player ||= Player.find(params[:id])
       end
     end
   end
