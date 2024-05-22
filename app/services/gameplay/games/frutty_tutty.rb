@@ -5,7 +5,6 @@ module Gameplay
       SLOTS_NUMBER = 3
       REWARDS = { "🍒" => 10, "🍋" => 20, "🍊" => 30, "🍉" => 40 }.freeze
 
-      FREE_SCORES = 10
       PENALTY = 1
 
       CHANCE_60 = [true, true, false].freeze # to be precise, it's 2/3 chance, aka 67%

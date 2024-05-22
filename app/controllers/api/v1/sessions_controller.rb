@@ -14,7 +14,8 @@ module Api
         # todo: move to session creator
         # it has to allocate free points in the beginning of the session
         # if a game has one
-        session = Session.create(**session_params, score: game.credits)
+
+        session = Session.create(**session_params)
 
         render json: session
       end

@@ -4,7 +4,8 @@ FactoryBot.define do
     player
 
     score { 1 }
-    state { :new_game }
+
+    trait :new
 
     trait :in_progress do
       state { :in_progress }
