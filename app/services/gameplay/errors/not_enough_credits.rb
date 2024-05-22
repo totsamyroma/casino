@@ -1,7 +1,8 @@
 module Gameplay
   module Errors
     class NotEnoughCredits < StandardError
-      def initialize(msg="You don't have enough credits to play. Start a new game.")
+      ERROR_MESSAGE = "You don't have enough credits to play. Start a new game."
+      def initialize(msg=ERROR_MESSAGE)
         super
       end
     end
