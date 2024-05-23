@@ -31,7 +31,7 @@ RSpec.describe Gameplay::Slot do
     end
 
     context 'when session is won' do
-      include_context 'when session in a state', :won, :start!,Gameplay::Errors::FinishedSession
+      include_context 'when session in a state', :won, :start!, Gameplay::Errors::FinishedSession
     end
   end
 
