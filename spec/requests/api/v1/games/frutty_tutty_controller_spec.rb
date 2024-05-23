@@ -62,7 +62,7 @@ RSpec.describe "Api::V1::Games::FruttyTuttyController", type: :request do
   describe "PATCH /api/v1/games/frutty_tutty/play" do
     subject(:request) { patch "/api/v1/games/frutty_tutty/play", params: game_params }
 
-    let(:session) { create(:session, :in_progress, score: 30,  game:) }
+    let(:session) { create(:session, :in_progress, score: 30, game:) }
     let(:game_params) { { game: { session_id: session.id } } }
     let(:expected_sequence) { %w[🍒 🍒 🍒] }
     let(:expected_restult) { { sequence: expected_sequence, reward: 10, score: 40 } }
