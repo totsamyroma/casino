@@ -6,14 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: Keywords, RequireColon.
-# Keywords: TODO, FIXME, OPTIMIZE, HACK, REVIEW, NOTE
-Style/CommentAnnotation:
-  Exclude:
-    - 'app/controllers/api/v1/sessions_controller.rb'
-
 # Offense count: 63
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: EnforcedStyle.

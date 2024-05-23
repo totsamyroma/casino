@@ -11,7 +11,7 @@ module Api
         # For not simply create a player
         # In future it's necessary to verify age and T&C
 
-        # todo: move to session creator
+        # TODO: move to session creator
         # it has to allocate free points in the beginning of the session
         # if a game has one
 
@@ -35,7 +35,7 @@ module Api
       end
 
       def cash_out
-        # todo move to cashout service
+        # TODO: move to cashout service
 
         ApplicationRecord.transaction do
           session.finish!
