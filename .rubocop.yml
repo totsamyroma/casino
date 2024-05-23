@@ -23,3 +23,6 @@ Style/BlockComments:
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
+
+Style/SymbolArray:
+  EnforcedStyle: percent
