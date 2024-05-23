@@ -95,13 +95,21 @@ module Gameplay
 
     def update_session_score
       if winning_roll?
-        session.update!(score: session.score + reward)
+        update_score_with_reward
       else
-        if session.score < penalty
-          session.update!(score: 0)
-        else
-          session.update!(score: session.score - penalty)
-        end
+        update_score_with_penalty
+      end
+    end
+
+    def update_score_with_reward
+      session.update!(score: session.score + reward)
+    end
+
+    def update_score_with_penalty
+      if session.score < penalty
+        session.update!(score: 0)
+      else
+        session.update!(score: session.score - penalty)
       end
     end
 
