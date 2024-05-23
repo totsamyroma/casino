@@ -1,0 +1,22 @@
+inherit_from: .rubocop_todo.yml
+
+inherit_gem:
+  rubocop-shopify: rubocop.yml
+
+AllCops:
+  Exclude:
+    - app/frontend/**/*
+    - bin/**/*
+
+Style/MethodCallWithArgsParentheses:
+  Exclude:
+    - app/controllers/**/*.rb
+    - config/**/*.rb
+    - db/**/*.rb
+    - Gemfile
+    - Rakefile
+    - spec/**/*.rb
+
+Style/BlockComments:
+  Exclude:
+    - spec/spec_helper.rb
