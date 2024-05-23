@@ -26,7 +26,7 @@ module Gameplay
       end
     end
 
-    def top_up!(top_up_amount=100)
+    def top_up!(top_up_amount = 100)
       raise Gameplay::Errors::FinishedSession.new("You can't top up lost or finished sessions") if session.finished? || session.lost? || session.won?
 
       ApplicationRecord.transaction do
