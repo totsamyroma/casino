@@ -12,7 +12,6 @@ Rails.application.routes.draw do
       resources :sessions, only: %i[show create] do
         patch :start, on: :member
         patch :finish, on: :member
-        patch :cash_out, on: :member
       end
 
       resources :games, only: %i[index]
