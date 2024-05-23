@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Gameplay
   module Errors
     class InactiveSession < StandardError

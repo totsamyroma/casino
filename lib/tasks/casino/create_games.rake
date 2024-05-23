@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :casino do
   desc "Create games"
   task :create_games => :environment do
