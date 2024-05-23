@@ -104,7 +104,7 @@ RSpec.describe Session, type: :model do
       end
 
       context "when already in won state" do
-      subject(:session) { create(:session, :won) }
+        subject(:session) { create(:session, :won) }
 
         it "does not change the state" do
           expect { session.win! }.to raise_error(AASM::InvalidTransition)
@@ -122,7 +122,7 @@ RSpec.describe Session, type: :model do
       end
 
       context "when already in won state" do
-      subject(:session) { create(:session, :lost) }
+        subject(:session) { create(:session, :lost) }
 
         it "does not change the state" do
           expect { session.lose! }.to raise_error(AASM::InvalidTransition)
