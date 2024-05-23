@@ -23,7 +23,7 @@ module Gameplay
       private
 
       def add_free_scores
-        session.update score: session.score + session.game.credits
+        session.update(score: session.score + session.game.credits)
       end
 
       def slots

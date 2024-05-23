@@ -112,7 +112,7 @@ module Gameplay
     end
 
     def log_roll
-      Rails.logger.info "Session: #{session.id} | Sequence: #{sequence} | Reward: #{reward} | Score: #{session.score}"
+      Rails.logger.info("Session: #{session.id} | Sequence: #{sequence} | Reward: #{reward} | Score: #{session.score}")
     end
   end
 end
