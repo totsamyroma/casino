@@ -13,13 +13,13 @@ module Gameplay
     end
 
     def finish!
-      raise Gameplay::Errors::FinishedSession.new('Game is finished already') if session.finished? || session.lost? || session.won?
+      raise Gameplay::Errors::FinishedSession, 'Game is finished already' if session.finished? || session.lost? || session.won?
 
       session.finish!
     end
 
     def cash_out!
-      raise Gameplay::Errors::FinishedSession.new("You can't cash out lost or finished sessions") if session.finished? || session.won? || session.lost?
+      raise Gameplay::Errors::FinishedSession, "You can't cash out lost or finished sessions" if session.finished? || session.won? || session.lost?
 
       ApplicationRecord.transaction do
         session.player.update(credits: session.player.credits + session.score)
@@ -29,7 +29,7 @@ module Gameplay
     end
 
     def top_up!(top_up_amount = 100)
-      raise Gameplay::Errors::FinishedSession.new("You can't top up lost or finished sessions") if session.finished? || session.lost? || session.won?
+      raise Gameplay::Errors::FinishedSession, "You can't top up lost or finished sessions" if session.finished? || session.lost? || session.won?
 
       ApplicationRecord.transaction do
         amount = top_up_amount.to_i
