@@ -49,7 +49,6 @@ module Api
       private
 
       def session_params
-
         params.require(:session).permit(:id, :game_id, :player_id)
       end
 
