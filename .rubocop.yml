@@ -26,3 +26,6 @@ Style/StringLiterals:
 
 Style/SymbolArray:
   EnforcedStyle: percent
+
+Style/WordArray:
+  EnforcedStyle: percent
