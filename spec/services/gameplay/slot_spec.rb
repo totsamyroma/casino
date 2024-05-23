@@ -47,15 +47,27 @@ RSpec.describe Gameplay::Slot do
     end
 
     context "when session is finished" do
-      include_context "when session in a state", :finished, :finish!, Gameplay::Errors::FinishedSession, "Game is finished already"
+      include_context "when session in a state",
+        :finished,
+        :finish!,
+        Gameplay::Errors::FinishedSession,
+        "Game is finished already"
     end
 
     context "when session is won" do
-      include_context "when session in a state", :won, :finish!, Gameplay::Errors::FinishedSession, "Game is finished already"
+      include_context "when session in a state",
+        :won,
+        :finish!,
+        Gameplay::Errors::FinishedSession,
+        "Game is finished already"
     end
 
     context "when session is lost" do
-      include_context "when session in a state", :lost, :finish!, Gameplay::Errors::FinishedSession, "Game is finished already"
+      include_context "when session in a state",
+        :lost,
+        :finish!,
+        Gameplay::Errors::FinishedSession,
+        "Game is finished already"
     end
   end
 
@@ -91,15 +103,27 @@ RSpec.describe Gameplay::Slot do
     end
 
     context "when session is finished" do
-      include_context "when session in a state", :finished, :cash_out!, Gameplay::Errors::FinishedSession, "You can't cash out lost or finished sessions"
+      include_context "when session in a state",
+        :finished,
+        :cash_out!,
+        Gameplay::Errors::FinishedSession,
+        "You can't cash out lost or finished sessions"
     end
 
     context "when session is won" do
-      include_context "when session in a state", :won, :cash_out!, Gameplay::Errors::FinishedSession, "You can't cash out lost or finished sessions"
+      include_context "when session in a state",
+        :won,
+        :cash_out!,
+        Gameplay::Errors::FinishedSession,
+        "You can't cash out lost or finished sessions"
     end
 
     context "when session is lost" do
-      include_context "when session in a state", :lost, :cash_out!, Gameplay::Errors::FinishedSession, "You can't cash out lost or finished sessions"
+      include_context "when session in a state",
+        :lost,
+        :cash_out!,
+        Gameplay::Errors::FinishedSession,
+        "You can't cash out lost or finished sessions"
     end
   end
 
@@ -111,15 +135,27 @@ RSpec.describe Gameplay::Slot do
     end
 
     context "when session is finished" do
-      include_context "when session in a state", :finished, :top_up!, Gameplay::Errors::FinishedSession, "You can't top up lost or finished sessions"
+      include_context "when session in a state",
+        :finished,
+        :top_up!,
+        Gameplay::Errors::FinishedSession,
+        "You can't top up lost or finished sessions"
     end
 
     context "when session is won" do
-      include_context "when session in a state", :won, :top_up!, Gameplay::Errors::FinishedSession, "You can't top up lost or finished sessions"
+      include_context "when session in a state",
+        :won,
+        :top_up!,
+        Gameplay::Errors::FinishedSession,
+        "You can't top up lost or finished sessions"
     end
 
     context "when session is lost" do
-      include_context "when session in a state", :lost, :top_up!, Gameplay::Errors::FinishedSession, "You can't top up lost or finished sessions"
+      include_context "when session in a state",
+        :lost,
+        :top_up!,
+        Gameplay::Errors::FinishedSession,
+        "You can't top up lost or finished sessions"
     end
   end
 end
