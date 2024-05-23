@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "Api::V1::GamesControllers", type: :request do
   describe "GET /api/v1/games" do
@@ -8,7 +8,7 @@ RSpec.describe "Api::V1::GamesControllers", type: :request do
 
     let!(:games) { create_list(:game, 3) }
 
-    it 'returns a list of games' do
+    it "returns a list of games" do
       request
 
       expect(response).to have_http_status(:success)

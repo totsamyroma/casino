@@ -13,7 +13,7 @@ module Gameplay
     end
 
     def finish!
-      raise Gameplay::Errors::FinishedSession, 'Game is finished already' if session.finished? || session.lost? || session.won?
+      raise Gameplay::Errors::FinishedSession, "Game is finished already" if session.finished? || session.lost? || session.won?
 
       session.finish!
     end

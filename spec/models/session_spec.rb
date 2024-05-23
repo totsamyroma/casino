@@ -1,29 +1,29 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Session, type: :model do
-  describe 'validations' do
-    context 'with valid attributes' do
+  describe "validations" do
+    context "with valid attributes" do
       subject(:session) { build(:session) }
 
       it { is_expected.to be_valid }
     end
 
-    context 'when player is missing' do
+    context "when player is missing" do
       subject(:session) { build(:session, player: nil) }
 
       it { is_expected.to_not be_valid }
     end
 
-    context 'when game is missing' do
+    context "when game is missing" do
       subject(:session) { build(:session, game: nil) }
 
       it { is_expected.to_not be_valid }
     end
   end
 
-  describe 'relations' do
+  describe "relations" do
     subject(:session) { create(:session, player:, game:) }
 
     let(:player) { create(:player) }
@@ -35,14 +35,14 @@ RSpec.describe Session, type: :model do
     end
   end
 
-  describe 'state machine' do
+  describe "state machine" do
     subject(:session) { Session.new }
 
     it "starts in new_game state" do
       expect(session.state).to eq("new_game")
     end
 
-    describe 'available states' do
+    describe "available states" do
       subject(:states) { Session.aasm.states.map(&:name) }
 
       let(:expected_states) { %i(new_game in_progress won lost finished) }
@@ -50,7 +50,7 @@ RSpec.describe Session, type: :model do
       it { is_expected.to eq(expected_states) }
     end
 
-    describe '#play!' do
+    describe "#play!" do
       subject(:session) { create(:session) }
 
       it "transitions to in_progress state" do
@@ -68,7 +68,7 @@ RSpec.describe Session, type: :model do
       end
     end
 
-    describe '#finisn!' do
+    describe "#finisn!" do
       subject(:session) { create(:session) }
 
       it "transitions to finish state" do
@@ -96,7 +96,7 @@ RSpec.describe Session, type: :model do
       end
     end
 
-    describe '#win!' do
+    describe "#win!" do
       subject(:session) { create(:session, :in_progress) }
 
       it "transitions to won state" do
@@ -114,7 +114,7 @@ RSpec.describe Session, type: :model do
       end
     end
 
-    describe '#lose!' do
+    describe "#lose!" do
       subject(:session) { create(:session, :in_progress) }
 
       it "transitions to lost state" do

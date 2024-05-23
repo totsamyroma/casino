@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "Api::V1::Games::FruttyTuttyController", type: :request do
   let(:game) { create(:game, :frutty_tutty) }
@@ -11,8 +11,8 @@ RSpec.describe "Api::V1::Games::FruttyTuttyController", type: :request do
     let(:session) { create(:session, game:) }
     let(:game_params) { { game: { session_id: session.id } } }
 
-    it 'starts a session' do
-      expect { request }.to change { session.reload.state }.to('in_progress')
+    it "starts a session" do
+      expect { request }.to change { session.reload.state }.to("in_progress")
 
       expect(response).to have_http_status(:success)
     end
@@ -24,8 +24,8 @@ RSpec.describe "Api::V1::Games::FruttyTuttyController", type: :request do
     let(:session) { create(:session, :in_progress, game:) }
     let(:game_params) { { game: { session_id: session.id } } }
 
-    it 'finishes a session' do
-      expect { request }.to change { session.reload.state }.to('finished')
+    it "finishes a session" do
+      expect { request }.to change { session.reload.state }.to("finished")
 
       expect(response).to have_http_status(:success)
     end
@@ -38,9 +38,9 @@ RSpec.describe "Api::V1::Games::FruttyTuttyController", type: :request do
     let(:player) { session.player }
     let(:game_params) { { game: { session_id: session.id } } }
 
-    it 'moves session score to player credits and sets session to a won state' do
+    it "moves session score to player credits and sets session to a won state" do
       expect { request }.to change { player.reload.credits }.by(50)
-        .and change { session.reload.state }.to('won')
+        .and change { session.reload.state }.to("won")
         .and change { session.reload.score }.to(0)
 
       expect(response).to have_http_status(:success)
@@ -53,10 +53,10 @@ RSpec.describe "Api::V1::Games::FruttyTuttyController", type: :request do
     let(:session) { create(:session, :in_progress, game:) }
     let(:game_params) { { game: { session_id: session.id, top_up_amount: 100 } } }
 
-    it 'tops up session score' do
+    it "tops up session score" do
       expect { request }.to change { session.reload.score }.by(100)
 
-      expect(session.reload.state).to eq('in_progress')
+      expect(session.reload.state).to eq("in_progress")
       expect(response).to have_http_status(:success)
     end
   end
@@ -73,7 +73,7 @@ RSpec.describe "Api::V1::Games::FruttyTuttyController", type: :request do
       allow_any_instance_of(Gameplay::Games::FruttyTutty).to receive(:sequence).and_return(expected_sequence)
     end
 
-    it 'tops up session score' do
+    it "tops up session score" do
       expect { request }.to change { session.reload.score }.by(10)
 
       expect(response).to have_http_status(:success)
