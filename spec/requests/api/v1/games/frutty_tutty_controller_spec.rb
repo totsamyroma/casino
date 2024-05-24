@@ -39,6 +39,8 @@ RSpec.describe "Api::V1::Games::FruttyTuttyController", type: :request do
     let(:game_params) { { game: { session_id: session.id } } }
 
     it "moves session score to player credits and sets session to a won state" do
+      allow_any_instance_of(Session).to receive(:meta).and_return({ "sequence" => %w[🍒 🍋 🍊] })
+
       expect { request }.to change { player.reload.credits }.by(50)
         .and change { session.reload.state }.to("won")
         .and change { session.reload.score }.to(0)

@@ -98,8 +98,19 @@ RSpec.describe Gameplay::Slot do
   describe "#cash_out!" do
     let(:session) { create(:session, :in_progress, score: 100) }
 
-    it "moves session to won state and moves score to player credit" do
-      expect { game.cash_out! }.to change { session.player.credits }.by(100).and change { session.state }.to("won")
+    context "when session was played" do
+      it "moves session to won state and moves score to player credit" do
+        expect(session).to receive(:meta).and_return({ "sequence" => %w[🍒 🍋 🍊] })
+        expect { game.cash_out! }.to change { session.player.credits }.by(100).and change { session.state }.to("won")
+      end
+    end
+
+    context "when unplayed session" do
+      include_context "when session in a state",
+        :in_progress,
+        :cash_out!,
+        Gameplay::Errors::UnplayedSessionCashOut,
+        "You can't cash out credits on unplayed session. Make at least one roll."
     end
 
     context "when session is finished" do

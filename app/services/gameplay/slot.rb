@@ -23,6 +23,10 @@ module Gameplay
       raise Gameplay::Errors::FinishedSession,
         "You can't cash out lost or finished sessions" if session.finished? || session.won? || session.lost?
 
+      # TODO: move to cashout service
+      # Ideally we shouldn't let player cash out free credits before the first winning sequence
+      raise Gameplay::Errors::UnplayedSessionCashOut unless session.meta["sequence"]
+
       ApplicationRecord.transaction do
         session.player.update(credits: session.player.credits + session.score)
         session.update(score: 0)
