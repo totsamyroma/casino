@@ -10,6 +10,6 @@ namespace :casino do
     Game.find_or_create_by!(name: "Frutty-Tutty", kind: "slots", credits: 10)
     Rails.logger.debug("Frutt-Tutty game created...")
 
-    Rails.logger.info("Creating games")
+    Rails.logger.info("Created games")
   end
 end
