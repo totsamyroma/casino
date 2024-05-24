@@ -92,8 +92,9 @@ module Gameplay
 
     def update_session
       update_session_score
+      update_session_meta
 
-      session.lose! if session.zero?
+      session.lose! if session.score.zero?
     end
 
     def update_session_score
@@ -102,6 +103,10 @@ module Gameplay
       else
         update_score_with_penalty
       end
+    end
+
+    def update_session_meta
+      session.update(meta: { sequence: sequence, reward: reward })
     end
 
     def update_score_with_reward

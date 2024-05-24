@@ -25,12 +25,15 @@ module Api
         end
 
         def cash_out
+          # TODO: move to cashout service
+          # player should not be able to cash out free credits
           game.cash_out!
 
           render json: session
         end
 
         def top_up
+          # TODO: move to top up service
           game.top_up!(game_params[:top_up_amount])
 
           render json: session

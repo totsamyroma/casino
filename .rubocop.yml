@@ -27,3 +27,5 @@ Style/SymbolArray:
 
 Style/WordArray:
   EnforcedStyle: percent
+  Exclude:
+    - db/schema.rb

@@ -49,7 +49,8 @@ module Gameplay
 
         reroll if reroll?
 
-        update_session_score
+        log_roll
+        update_session
       end
 
       def reroll

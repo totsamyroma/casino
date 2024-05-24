@@ -38,6 +38,8 @@ gem "aasm"
 
 gem "rack-cors"
 
+gem "paper_trail"
+
 group :development, :test do
   gem "pry-byebug"
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

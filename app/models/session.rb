@@ -3,6 +3,8 @@
 class Session < ApplicationRecord
   include AASM
 
+  has_paper_trail
+
   belongs_to :game
   belongs_to :player
 
