@@ -121,6 +121,7 @@ export default defineComponent({
         const session = response.data
 
         sessionState.value = session.state
+        score.value = response.data.score
       } catch (error) {
         console.error(error)
       }
